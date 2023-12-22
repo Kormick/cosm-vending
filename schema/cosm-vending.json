@@ -1,0 +1,170 @@
+{
+  "contract_name": "cosm-vending",
+  "contract_version": "0.1.0",
+  "idl_version": "1.0.0",
+  "instantiate": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "InstantiateMsg",
+    "type": "object",
+    "required": [
+      "initial_amount",
+      "owner"
+    ],
+    "properties": {
+      "initial_amount": {
+        "description": "List with initial amounts of items",
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": [
+            {
+              "$ref": "#/definitions/Snack"
+            },
+            {
+              "type": "integer",
+              "format": "uint64",
+              "minimum": 0.0
+            }
+          ],
+          "maxItems": 2,
+          "minItems": 2
+        }
+      },
+      "owner": {
+        "description": "Address of the owner of the current contract instance",
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "definitions": {
+      "Snack": {
+        "description": "Kinds of snacks",
+        "type": "string",
+        "enum": [
+          "chocolate",
+          "water",
+          "chips"
+        ]
+      }
+    }
+  },
+  "execute": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "ExecuteMsg",
+    "oneOf": [
+      {
+        "description": "Decreases amount of specified item by 1",
+        "type": "object",
+        "required": [
+          "get_item"
+        ],
+        "properties": {
+          "get_item": {
+            "$ref": "#/definitions/Snack"
+          }
+        },
+        "additionalProperties": false
+      },
+      {
+        "description": "Increases amount of specified item by given amount",
+        "type": "object",
+        "required": [
+          "refill"
+        ],
+        "properties": {
+          "refill": {
+            "$ref": "#/definitions/RefillMsg"
+          }
+        },
+        "additionalProperties": false
+      }
+    ],
+    "definitions": {
+      "RefillMsg": {
+        "type": "object",
+        "required": [
+          "amount",
+          "item"
+        ],
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          },
+          "item": {
+            "$ref": "#/definitions/Snack"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Snack": {
+        "description": "Kinds of snacks",
+        "type": "string",
+        "enum": [
+          "chocolate",
+          "water",
+          "chips"
+        ]
+      }
+    }
+  },
+  "query": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "QueryMsg",
+    "oneOf": [
+      {
+        "description": "Get the current amount of items available",
+        "type": "string",
+        "enum": [
+          "items_count"
+        ]
+      }
+    ]
+  },
+  "migrate": null,
+  "sudo": null,
+  "responses": {
+    "items_count": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ItemsCountResp",
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "description": "List of items and their available amounts",
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": [
+              {
+                "$ref": "#/definitions/Snack"
+              },
+              {
+                "type": "integer",
+                "format": "uint64",
+                "minimum": 0.0
+              }
+            ],
+            "maxItems": 2,
+            "minItems": 2
+          }
+        }
+      },
+      "additionalProperties": false,
+      "definitions": {
+        "Snack": {
+          "description": "Kinds of snacks",
+          "type": "string",
+          "enum": [
+            "chocolate",
+            "water",
+            "chips"
+          ]
+        }
+      }
+    }
+  }
+}

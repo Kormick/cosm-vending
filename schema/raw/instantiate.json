@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InstantiateMsg",
+  "type": "object",
+  "required": [
+    "initial_amount",
+    "owner"
+  ],
+  "properties": {
+    "initial_amount": {
+      "description": "List with initial amounts of items",
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": [
+          {
+            "$ref": "#/definitions/Snack"
+          },
+          {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0.0
+          }
+        ],
+        "maxItems": 2,
+        "minItems": 2
+      }
+    },
+    "owner": {
+      "description": "Address of the owner of the current contract instance",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "Snack": {
+      "description": "Kinds of snacks",
+      "type": "string",
+      "enum": [
+        "chocolate",
+        "water",
+        "chips"
+      ]
+    }
+  }
+}

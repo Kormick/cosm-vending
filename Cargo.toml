@@ -1,0 +1,25 @@
+[package]
+name = "cosm-vending"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+library = []
+
+[dependencies]
+cosmwasm-schema = "1.5.0"
+cosmwasm-std = { version = "1.0.0-beta8", features = ["staking"] }
+cw-storage-plus = "1.2.0"
+schemars = "0.8.16"
+serde = { version = "1.0.193", default-features = false, features = ["derive"] }
+strum = "0.25.0"
+strum_macros = "0.25.3"
+thiserror = "1.0.51"
+
+[dev-dependencies]
+cw-multi-test = "0.20.0"

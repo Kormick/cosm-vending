@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExecuteMsg",
+  "oneOf": [
+    {
+      "description": "Decreases amount of specified item by 1",
+      "type": "object",
+      "required": [
+        "get_item"
+      ],
+      "properties": {
+        "get_item": {
+          "$ref": "#/definitions/Snack"
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "description": "Increases amount of specified item by given amount",
+      "type": "object",
+      "required": [
+        "refill"
+      ],
+      "properties": {
+        "refill": {
+          "$ref": "#/definitions/RefillMsg"
+        }
+      },
+      "additionalProperties": false
+    }
+  ],
+  "definitions": {
+    "RefillMsg": {
+      "type": "object",
+      "required": [
+        "amount",
+        "item"
+      ],
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "uint64",
+          "minimum": 0.0
+        },
+        "item": {
+          "$ref": "#/definitions/Snack"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Snack": {
+      "description": "Kinds of snacks",
+      "type": "string",
+      "enum": [
+        "chocolate",
+        "water",
+        "chips"
+      ]
+    }
+  }
+}
