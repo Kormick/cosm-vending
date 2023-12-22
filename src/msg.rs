@@ -1,9 +1,5 @@
-use std::str::FromStr;
-
 use cosmwasm_schema::{cw_serde, QueryResponses};
 use strum_macros::EnumIter;
-
-use crate::errors::Error;
 
 /// Kinds of snacks
 #[derive(Copy, Eq, Hash, EnumIter)]
@@ -17,19 +13,6 @@ pub enum Snack {
 impl std::fmt::Display for Snack {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(f, "{:?}", self)
-    }
-}
-
-impl FromStr for Snack {
-    type Err = Error;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Ok(match s.to_lowercase().as_str() {
-            "chocolate" => Snack::Chocolate,
-            "chips" => Snack::Chips,
-            "water" => Snack::Water,
-            _ => return Err(Error::UnknownItem(s.to_owned())),
-        })
     }
 }
 
